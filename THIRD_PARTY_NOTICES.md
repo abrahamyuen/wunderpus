@@ -21,7 +21,7 @@ Used to remove metadata from video and audio files without re-encoding.
 | **Licence text** | `Wunderpus.app/Contents/Resources/licenses/GPL-3.0.txt` · https://www.gnu.org/licenses/gpl-3.0.html |
 | **Project** | https://ffmpeg.org |
 
-**Source code.** The complete FFmpeg 9.0.2 source code is attached to each Wunderpus release on GitHub (`ffmpeg-9.0.2.tar.xz`, under *Assets*: https://github.com/abrahemp/wunderpus/releases) and is also available from https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz. The build configuration and the external libraries compiled into the binaries are listed by running `ffmpeg -version` and are documented, with their build scripts, at https://ffmpeg.martin-riedl.de. Those libraries remain under their own open-source licences.
+**Source code.** The complete FFmpeg 9.0.2 source code is attached to each Wunderpus release on GitHub (`ffmpeg-9.0.2.tar.xz`, under *Assets*: https://github.com/abrahamyuen/wunderpus/releases) and is also available from https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz. The build configuration and the external libraries compiled into the binaries are listed by running `ffmpeg -version` and are documented, with their build scripts, at https://ffmpeg.martin-riedl.de. Those libraries remain under their own open-source licences.
 
 FFmpeg is a trademark of Fabrice Bellard, originator of the FFmpeg project. Wunderpus is not affiliated with or endorsed by the FFmpeg project.
 
@@ -46,4 +46,4 @@ Wunderpus is not affiliated with or endorsed by ExifTool or Phil Harvey.
 
 ## Getting the source code
 
-If you can't get the source code for any bundled component from the links above, open an issue at https://github.com/abrahemp/wunderpus/issues and it will be provided free of charge. This offer is valid for at least three years after the last release that included that component.
+If you can't get the source code for any bundled component from the links above, open an issue at https://github.com/abrahamyuen/wunderpus/issues and it will be provided free of charge. This offer is valid for at least three years after the last release that included that component.

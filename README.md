@@ -10,7 +10,7 @@ Removes metadata from videos, audio and images, including AI / C2PA "Content Cre
 
 ## Download
 
-**[Download the latest Wunderpus.zip](https://github.com/abrahemp/wunderpus/releases/latest/download/Wunderpus.zip)**
+**[Download the latest Wunderpus.zip](https://github.com/abrahamyuen/wunderpus/releases/latest/download/Wunderpus.zip)**
 
 ## Install
 
@@ -63,5 +63,5 @@ Wunderpus © 2026 Abraham Yuen. Released under the [MIT License](LICENSE).
 
 Wunderpus includes these separate open-source tools, each under its own licence. Details, versions and source code: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-- **FFmpeg**: [ffmpeg.org](https://ffmpeg.org), static macOS builds by Martin Riedl ([ffmpeg.martin-riedl.de](https://ffmpeg.martin-riedl.de)). GPL v3. Its source code is attached to every [release](https://github.com/abrahemp/wunderpus/releases).
+- **FFmpeg**: [ffmpeg.org](https://ffmpeg.org), static macOS builds by Martin Riedl ([ffmpeg.martin-riedl.de](https://ffmpeg.martin-riedl.de)). GPL v3. Its source code is attached to every [release](https://github.com/abrahamyuen/wunderpus/releases).
 - **ExifTool** by Phil Harvey: [exiftool.org](https://exiftool.org). Perl Artistic License / GPL.
