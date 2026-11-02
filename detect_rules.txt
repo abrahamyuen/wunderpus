@@ -1,0 +1,48 @@
+# Wunderpus detection rules — which metadata counts as an "AI tag" when checking files.
+# version: 2026.11.02
+#
+# "Check for Updates" downloads a newer copy of this file (see RULES_URL in update.sh), so new
+# AI tools and new tagging standards can be added without rebuilding the app. Bump the version
+# line above whenever you change it; the newest version (bundled or downloaded) wins.
+#
+# One rule per line, fields separated by a TAB or by 2+ spaces:
+#   KIND   TAG-PATTERN   VALUE-PATTERN   LABEL
+#
+#   KIND  ai     an AI / Content Credentials tag (file is flagged red)
+#         info   other identifying metadata (shown, but not flagged as AI)
+#         bytes  raw text to look for in the first and last 8 MB of the file, for AI data that
+#                ExifTool can't read yet (TAG-PATTERN is the exact text; VALUE-PATTERN is ignored)
+#   TAG-PATTERN    regular expression on "Group:Tag" as ExifTool names it (e.g. XMP-iptcExt:DigitalSourceType)
+#   VALUE-PATTERN  regular expression on the tag's value, or * for any value
+#   Matching ignores upper/lower case. The first matching rule wins, so ai rules go before info rules.
+
+# ---------------------------------------------------------------- Content Credentials (C2PA)
+ai     ^(jumbf|c2pa|cbor)[^:]*:            *    Content Credentials (C2PA)
+ai     :provenance$                        c2pa|cai-manifests|contentcredentials|content-credentials|https?://    Content Credentials (link to an online record)
+bytes  c2pa.claim                          *    Content Credentials (C2PA) data block
+bytes  c2pa.actions                        *    Content Credentials (C2PA) data block
+bytes  c2pa.hash.data                      *    Content Credentials (C2PA) data block
+bytes  cai-manifests.adobe.com             *    Content Credentials (link to an online record)
+bytes  urn:c2pa:                           *    Content Credentials (C2PA) data block
+
+# ---------------------------------------------------------------- IPTC "made by AI" labels (used by Meta, Google, Adobe, OpenAI, Midjourney…)
+ai     :digitalsourcetype$                 algorithmicmedia|compositesynthetic|trainedalgorithmic    Marked as AI-generated (IPTC)
+ai     :(aipromptinformation|aipromptwritername|aisystemused|aisystemversionused)$    *    AI prompt / AI system (IPTC)
+
+# ---------------------------------------------------------------- AI image generator settings stored in PNG text
+ai     ^png[^:]*:(parameters|prompt|negativeprompt|workflow|invokeai_?metadata|sd-?metadata|dream|fooocus_scheme|generation_data)$    *    AI generator settings / prompt
+
+# ---------------------------------------------------------------- AI tool names written into any tag
+ai     .    (^|[^a-z0-9])(midjourney|dall-?e|stable.?diffusion|sdxl|firefly|openai|chatgpt|gpt-?image|sora|runway(ml)?|kling|google.?veo|veo.?[23]|google.?imagen|imagen.?[234]|gemini|nano.?banana|leonardo\.?ai|ideogram|comfyui|automatic1111|invokeai|novelai|fooocus|pika(labs)?|dream.?machine|luma.?ai|hailuo|minimax|synthesia|heygen|elevenlabs|suno|udio|krea|recraft|grok|image.?playground|bing.?image|designer.?ai|canva.?(ai|magic)|meta.?ai|imagine with meta|seedream|seedance|hunyuan|wan.?2|flux\.?[12]|black.?forest.?labs|playground.?ai|nightcafe|artbreeder|photoroom)([^a-z0-9]|$)    AI tool named in metadata
+ai     .    (^|[^a-z])(ai|a\.i\.)[- ]?(generated|created|edited|enhanced|assisted|art|image|video)|generated (by|with|using) (an? )?ai([^a-z]|$)|made (by|with|using) ([a-z]+ )?ai([^a-z]|$)|generative ai|artificial intelligence|synthetic media    AI wording in metadata
+ai     :(keywords|subject|category|supplementalcategories)$    (^|, )(ai|genai|gen ai)(,|$)    AI keyword
+
+# ---------------------------------------------------------------- Other identifying metadata (not AI)
+info   (^|:)gps                            *    Location (GPS)
+info   :(location|locationcreated|locationshown|city|country|country-primarylocationname|state|province-state|sub-location)$    *    Location
+info   :(make|model|lensmake|lensmodel|lensinfo|serialnumber|bodyserialnumber|internalserialnumber|lensserialnumber|cameraownername)$    *    Camera / device
+info   :(software|creatortool|historysoftwareagent|softwareagent|encoder|encodingtool|encodedby|processingsoftware|hostcomputer)$    *    Software used
+info   :(artist|author|creator|by-line|copyright|copyrightnotice|rights|owner|ownername|credit|source|publisher|usagerights|webstatement)$    *    Author / copyright
+info   :(title|comment|usercomment|description|imagedescription|caption-abstract|headline|keywords|subject|label|rating|instructions|specialinstructions)$    *    Title / description
+info   :(datetimeoriginal|createdate|creationdate|datecreated|digitalcreationdate|metadatadate|modifydate|datetimedigitized)$    [1-9]    Dates
+info   ^(xmp|iptc|photoshop|makernotes|itemlist|userdata|keys|riff|id3|vorbis|matroska)[^:]*:    *    Other embedded details
